@@ -1,0 +1,53 @@
+﻿@page "/students/edit"
+@inject AppDbContext DbContext
+@using Microsoft.EntityFrameworkCore
+@using Assign2_linq.Data
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Forms
+<EditForm Model="editModel" OnValidSubmit="EditStudent">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Editsname">sname to Edit:</label>
+        <InputText id="Editsname" @bind-Value="editModel.sname" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Newmajor">Newmajor:</label>
+        <InputText id="Newmajor" @bind-Value="editModel.major" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-warning">Edit Student</button>
+</EditForm>
+@code {
+    List<Student> students;
+    Student newStudent = new Student();
+    EditModel editModel = new EditModel();
+
+    protected override void OnInitialized()
+    {
+        students = DbContext.Students.ToList();
+    }
+    private void EditStudent()
+    {
+
+        var studentToEdit = DbContext.Students.FirstOrDefault(s => s.sname == editModel.sname);
+
+
+        if (studentToEdit != null)
+        {
+
+            studentToEdit.major = editModel.major;
+
+
+           // DbContext.SaveChanges();
+
+
+            students = DbContext.Students.ToList();
+        }
+
+
+        NavigationManager.NavigateTo("/students");
+    }
+}

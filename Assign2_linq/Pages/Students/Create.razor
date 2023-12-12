@@ -1,0 +1,54 @@
+﻿@page "/students/create"
+@using Assign2_linq.Data
+@inject AppDbContext DbContext
+@inject NavigationManager navigationManager
+
+<h3>Create Student</h3>
+
+<EditForm Model="@newStudent" OnValidSubmit="AddStudent">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="sname">sname:</label>
+        <InputText id="sname" class="form-control" @bind-Value="newStudent.sname" />
+    </div>
+    <div class="form-group">
+        <label for="major">major:</label>
+        <InputText id="major" class="form-control" @bind-Value="newStudent.major" />
+    </div>
+    <div class="form-group">
+        <label for="standing">standing:</label>
+        <InputText id="standing" class="form-control" @bind-Value="newStudent.standing" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button><NavLink href="/students/delete">Delete Student</NavLink></button>
+    <button><NavLink href="/students/edit">Edit Student</NavLink></button>
+</EditForm>
+
+@code {
+    Student newStudent = new Student();
+    string errorMessage;
+
+    async Task AddStudent()
+    {
+        try
+        {
+            // Add the new student to the database
+            DbContext.Students.Add(newStudent);
+            await DbContext.SaveChangesAsync();
+
+            // Navigate back to the student list
+            navigationManager.NavigateTo("/students");
+        }
+        catch (Exception ex)
+        {
+            // Log the exception (you can use a logging framework or simply print to console)
+            Console.WriteLine($"Exception: {ex.Message}");
+
+            // Set an error message to display to the user
+            errorMessage = "An error occurred while saving the student. Please try again.";
+        }
+    }
+}
