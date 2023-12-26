@@ -1,0 +1,49 @@
+﻿@page "/faculty/delete"
+@inject AppDbContext DbContext
+@using Microsoft.EntityFrameworkCore
+@using Assign2_linq.Data
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Forms
+<EditForm Model="deleteModel" OnValidSubmit="Deletefaculty">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="DeleteName">fname to Delete:</label>
+        <InputText id="DeleteName" @bind-Value="deleteModel.fname" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-danger">Delete faculty</button>
+</EditForm>
+
+@code {
+    List<@class> faculty;
+    @class newfaculty = new @class();
+    DeleteModel deleteModel = new DeleteModel();
+
+    protected override void OnInitialized()
+    {
+        faculty = DbContext.faculty.ToList();
+    }
+
+
+    private void Deletefaculty()
+    {
+        
+        var facultyToDelete = DbContext.faculty.FirstOrDefault(s => s.fname == deleteModel.fname);
+
+        
+        if (facultyToDelete != null)
+        {
+           
+            DbContext.faculty.Remove(facultyToDelete);
+            DbContext.SaveChanges();
+
+            
+            faculty = DbContext.faculty.ToList();
+        }
+
+        
+        NavigationManager.NavigateTo("/students");
+    }
+    }

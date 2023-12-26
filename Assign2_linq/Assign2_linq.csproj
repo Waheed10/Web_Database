@@ -7,6 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\faculty\**" />
+    <Content Remove="Pages\faculty\**" />
+    <EmbeddedResource Remove="Pages\faculty\**" />
+    <None Remove="Pages\faculty\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\DeleteModel.cs" />
+    <Compile Remove="Data\EditModel.cs" />
+    <Compile Remove="Migrations\20231212193125_initial Create.cs" />
+    <Compile Remove="Migrations\20231212193125_initial Create.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Counter.razor" />
+    <Content Remove="Pages\FetchData.razor" />
+    <Content Remove="Pages\Students\Delete.razor" />
+    <Content Remove="Pages\Students\Edit.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\faculty\Create.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="Pages\faculty\Index.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
@@ -14,6 +44,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

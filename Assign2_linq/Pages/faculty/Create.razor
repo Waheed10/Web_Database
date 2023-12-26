@@ -1,0 +1,50 @@
+﻿@page "/faculty/Create"
+@using Assign2_linq.Data
+@inject AppDbContext DbContext
+@inject NavigationManager navigationManager
+
+<h3>Create faculty</h3>
+
+<EditForm Model="@newfaculty" OnValidSubmit="Addfaculty">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="fname">fname:</label>
+        <InputText id="fname" class="form-control" @bind-Value="newfaculty.fname" />
+    </div>
+    <div class="form-group">
+        <label for="deptid">deptid:</label>
+        <InputText id="deptid" class="form-control" @bind-Value="newfaculty.deptid" />
+    </div>
+    <div class="form-group">
+        <label for="standing">standing:</label>
+        <InputText id="standing" class="form-control" @bind-Value="newfaculty.standing" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+   <!-- <button><NavLink href="/students/delete">Delete Student</NavLink></button>
+     <button><NavLink href="/students/edit">Edit Student</NavLink></button>-->
+</EditForm>
+
+@code {
+    faculty newfaculty = new faculty();
+    string errorMessage;
+
+    async Task Addfaculty()
+    {
+        try
+        {
+         //  DbContext.faculty.Add(newfaculty);
+            await DbContext.SaveChangesAsync();
+
+            navigationManager.NavigateTo("/Faculty");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+
+            errorMessage = "An error occurred while saving the faculty. Please try again.";
+        }
+    }
+}

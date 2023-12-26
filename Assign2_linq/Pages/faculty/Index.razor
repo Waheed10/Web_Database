@@ -1,0 +1,35 @@
+﻿@page "/faculty"
+@inject AppDbContext DbContext
+@using Microsoft.EntityFrameworkCore
+@using Assign2_linq.Data
+
+<h3>faculty List</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>fname</th>
+            <th>deptid</th>
+            <th>standing</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Faculty in Faculty)
+        {
+            <tr>
+                <td>@Faculty.Id</td>
+                <td>@Faculty.fname</td>
+                <td>@Faculty.deptid</td>
+                <td>@Faculty.standing</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button><NavLink href="/Faculty/create">Add faculty</NavLink></button>
+
+@code {
+
+    List<faculty> Faculty;
+   //protected override void OnInitialized() => Faculty = DbContext.faculty.ToList();
+}

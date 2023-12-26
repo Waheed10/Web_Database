@@ -7,6 +7,9 @@ namespace Assign2_linq.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+
         public DbSet<Student> Students { get; set; }
-    }
-}
+       // public DbSet<faculty> Faculty { get; set; }
+    } }
+
+

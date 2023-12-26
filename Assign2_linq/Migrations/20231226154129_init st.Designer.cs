@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assign2_linq.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231212193125_initial Create")]
-    partial class initialCreate
+    [Migration("20231226154129_init st")]
+    partial class initst
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

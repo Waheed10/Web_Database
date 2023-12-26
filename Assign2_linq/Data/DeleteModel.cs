@@ -6,5 +6,6 @@ namespace Assign2_linq.Data
     {
         [Required(ErrorMessage = "Name is required.")]
         public string sname { get; set; }
+        public string fname { get; set; }
     }
 }
